@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_lead_stat_form" model="ir.ui.view">
+        <field name="name">sale.lead.stat.form</field>
+	<field name="model">sale.order</field>
+	<field name="inherit_id" ref="sale.view_order_form"></field>
+	<field name="arch" type="xml">
+		<xpath expr="//notebook" position="inside">
+			<page string="Stage stats">
+				<field name="stage_stat_ids" readonly="1">
+            				<tree string="Sales Stats">
+                				<field name="state_from" />
+                				<field name="state_to" />
+                				<field name="date" />
+                				<field name="diff_days" />
+            				</tree>
+				</field>
+			</page>
+		</xpath>
+        </field>
+    </record>
+
+    <record id="sale_stage_stat_tree" model="ir.ui.view">
+        <field name="name">sale.stage.stat.tree</field>
+        <field name="model">sale.stage.stat</field>
+        <field name="arch" type="xml">
+            <tree string="Sale Stage Stats" edit="0" create="0" delete="0">
+                <field name="order_id" />
+                <field name="state_from" />
+                <field name="state_to" />
+                <field name="date" />
+               	<field name="diff_days" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_sale_stage_stat" model="ir.actions.act_window">
+        <field name="name">Sale Stage Stat</field>
+        <field name="res_model">sale.stage.stat</field>
+        <field name="view_mode">tree,pivot</field>
+    </record>
+
+    <menuitem id="menu_sale_stage_stats"
+            name="Sale Stage Stats"
+            parent="sale.menu_sale_report"
+            action="action_sale_stage_stat"
+            sequence="100"
+	    groups="sales_team.group_sale_salesman"/>
+
+</odoo>
